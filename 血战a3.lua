@@ -13,6 +13,8 @@ stopRound=9999;
 status={};
 pidName="/var/touchelf/a3.pid";
 saveStars=0;
+-- 0 default, 1 blood first, 2 force first
+mode=0;
 
 function main()
 	loadSavedStatus();
@@ -73,7 +75,7 @@ function saveStatus()
 end
 
 function logStatus()
-	logDebug(string.format("P: %s R: %s G: %s on Round: %s saving: %s", status[0], status[1], status[2], round, saveStars));
+	logDebug(string.format("P: %s R: %s G: %s on Round: %s mode: %s saving: %s", status[0], status[1], status[2], round, mode, saveStars));
 end
 
 function fightEvil()
@@ -154,6 +156,7 @@ function fightEvil()
 
 		-- red > purple * 0.7
 		if status[1] > 200 and status[0] * 0.7 < status[1] then
+			mode = 1;
 			-- then purple 15 first
 			if x6 ~= -1 then
 				-- 气血 30
@@ -184,6 +187,7 @@ function fightEvil()
 				click3Percent();
 			end
 		elseif status[0] > 200 and status[1] < status[0] * 0.6 then
+			mode = 2;
 			-- then red 15 first
 			if x7 ~= -1 then
 				-- 武力 30
@@ -214,6 +218,7 @@ function fightEvil()
 				click3Percent();
 			end
 		else
+			mode = 0;
 			if x6 ~= -1 then
 				-- 气血 30
 				status[0] = status[0] + 30;
