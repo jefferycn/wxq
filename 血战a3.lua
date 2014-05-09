@@ -257,9 +257,7 @@ function clickRound(x,y,dx,dy)
 		round=round+1;
 		touchDown(0, (x+dx), (y+dy)) ;
 		touchUp(0);
-		logDebug("before");
 		mSleep(5000);
-		logDebug("after");
     end
 
 end
