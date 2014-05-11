@@ -6,7 +6,7 @@ function main()
     -- x, y =findImageInRegionFuzzy("/private/var/touchelf/scripts/bmp/npc1.bmp",80,528,60,570,120);
     -- notifyMessage(x);
     -- notifyMessage(y);
-    r,g,b = getColorRGB(205,329);
+    r,g,b = getColorRGB(350,670);
     logDebug(r .. " " .. g .. " " .. b);
     -- r,g,b = getColorRGB(350,470);
     -- logDebug(r .. " " .. g .. " " .. b);

@@ -6,7 +6,9 @@ SCREEN_COLOR_BITS=32;
 count=1;
 round=1;
 bloodRound=255;
-hardRound=366;
+bloodSkipRound=240;
+hardRound=388;
+hardSkipRound=333;
 starRound=999;
 stopRound=9999;
 -- purple,green,red
@@ -15,11 +17,12 @@ pidName="/var/touchelf/yang.pid";
 saveStars=0;
 -- 0 default, 1 blood first, 2 force first
 mode=0;
+prevX=-1;
+prevY=-1;
 
 function main()
 	loadSavedStatus();
 	while count<600000 do
-		keepScreen(false);
 		fightEvil();
 		mSleep(500);
 		if round >= stopRound then
@@ -34,9 +37,7 @@ end
 
 function deletestatus()
 	-- 0
-	keepScreen(false);
 	x, y =findColorInRegion(0xfff4bb,239,333,239,333);
-	keepScreen(true);
 	-- 2
 	x2, y2 =findColorInRegion(0xfffcab,234,324,234,324);
 	-- 1
@@ -58,7 +59,9 @@ function loadSavedStatus()
 			status[i] = tonumber(line);
 			i = i + 1;
 		end
-		round = status[3];
+		-- the latest round is not save
+		-- +1 to revert it
+		round = status[3] + 1;
 	else
 		status[0] = 0;
 		status[1] = 0;
@@ -92,8 +95,6 @@ function fightEvil()
     --touchDown(0, 600, 570)
     --touchUp(0);
 
-    keepScreen(true);
-
 	--打完繼續
 	x1, y1 =findColorInRegion(0x21937d,29,587,29,587);
 	click(x1,y1,0,0)
@@ -103,17 +104,11 @@ function fightEvil()
 	click(x2,y2,0,0)
 
 	if round<=bloodRound then
-		--血戰
-		x3, y3 =findColorInRegion(0x9f3637,143,250,143,250);
-		clickRound(x3,y3,0,0)
+		clickBloodBtn();
 	elseif round<= hardRound then
-		--力戰
-		x4, y4 =findColorInRegion(0xd2bb74,143,465,143,465);
-		clickRound(x4,y4,0,0)
+		clickHardBtn();
 	else
-		--奮戰
-		x5, y5 =findColorInRegion(0x74575b,143,685,143,685);
-		clickRound(x5,y5,0,0)
+		clickNormalBtn();
 	end
 
 	if round<=starRound then
@@ -131,28 +126,16 @@ function fightEvil()
 		x9, y9 =findColorInRegion(0x25ab46,350,670,350,670);
 
 		--15%氣血
-		x10, y10 =findColorInRegion(0xde5fa1,350,470,360,480);
+		x10, y10 =findColorInRegion(0xde5fa1,350,470,350,470);
 
 		--15%武力
-		x11, y11 =findColorInRegion(0xd35731,350,470,360,480);
+		x11, y11 =findColorInRegion(0xd35731,350,470,350,470);
 
 		--15%防禦
 		-- x12, y12 =findColorInRegion(0xf7d360,350,470,360,480);
 
 		--15%身法
-		x13, y13 =findColorInRegion(0x22ab44,350,470,360,480);
-
-		--3%氣血
-		-- x14, y14 =findColorInRegion(0xcb5e93,350,350,360,360);
-
-		--3%武力
-		-- x15, y15 =findColorInRegion(0xc1523a,350,350,360,360);
-
-		--3%防禦
-		-- x16, y16 =findColorInRegion(0xebc15e,350,350,360,360);
-
-		--3%身法
-		x17, y17 =findColorInRegion(0x419f4f,350,350,360,360);
+		x13, y13 =findColorInRegion(0x22ab44,350,470,350,470);
 
 		-- red > purple * 0.7
 		if status[1] > 200 and status[0] * 0.7 < status[1] then
@@ -256,27 +239,119 @@ end
 
 function clickRound(x,y,dx,dy)
 
-	if x ~= -1 and y ~= -1 then
+	if x ~= -1 and y ~= -1 and prevX == -1 and prevY == -1 then
+		prevX = 1;
+		prevY = 1;
 		saveStatus();
 		logStatus();
 		round=round+1;
 		touchDown(0, (x+dx), (y+dy)) ;
 		touchUp(0);
-		mSleep(5000);
+    elseif x == -1 and y == -1 and prevX == 1 and prevY == 1 then
+    	prevX = -1;
+    	prevY = -1;
+    	mSleep(3000);
+    else
+    	-- skip
     end
 
 end
 
 function click3Percent()
-	click(350,350,0,0);
+	local r,g,b;
+	r,g,b = getColorRGB(350,350);
+
+	if r == 57 and g == 143 and b == 146 then
+		-- 3% 内力
+		click(350,350,0,0);
+	elseif r == 203 and g == 94 and b == 147 then
+		-- 3% 气血
+		click(350,350,0,0);
+	elseif r == 193 and g == 82 and b == 58 then
+		-- 3% 武力
+		click(350,350,0,0);
+	elseif r == 235 and g == 193 and b == 94 then
+		-- 3% 防御
+		click(350,350,0,0);
+	elseif r == 65 and g == 159 and b == 79 then
+		-- 3% 身法
+		click(350,350,0,0);
+	else
+		-- skip
+	end
 end
 
 function click(x,y,dx,dy)
     if x ~= -1 and y ~= -1 then
         touchDown(0, (x+dx), (y+dy))   ;
         touchUp(0);
-        --mSleep(500);
     end
 
 end
 
+function clickBloodBtn()
+	local x, y;
+	if round > hardSkipRound and isInBloodIgnoreList() then
+		clickHardBtn();
+	else
+		x, y =findColorInRegion(0x9f3637,143,250,143,250);
+		clickRound(x,y,0,0)
+	end
+end
+
+function clickHardBtn()
+	local x, y;
+	if round > hardSkipRound and isInHardIgnoreList() then
+		clickNormalBtn()
+	else
+		x, y =findColorInRegion(0xd2bb74,143,465,143,465);
+		clickRound(x,y,0,0)
+	end
+end
+
+function clickNormalBtn()
+	local x, y;
+	x, y =findColorInRegion(0x74575b,143,685,143,685);
+	clickRound(x,y,0,0)
+end
+
+function isInBloodIgnoreList()
+	-- 天机
+	x, y =findColorInRegion(0x3d3a34,266,261,266,261);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+	-- 上官
+	x, y =findColorInRegion(0xb68d31,254,279,254,279);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+	-- 小李
+	x, y =findColorInRegion(0x4b3b32,263,267,263,267);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+end
+
+function isInHardIgnoreList()
+	-- 移花
+	x, y =findColorInRegion(0x7a2476,334,478,334,478);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+	-- 狮王
+	x, y =findColorInRegion(0x310e10,270,491,270,491);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+	-- 小李
+	x, y =findColorInRegion(0xe8ceac,266,476,266,476);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+	-- 上官
+	x, y =findColorInRegion(0x926c28,254,492,254,492);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	end
+end

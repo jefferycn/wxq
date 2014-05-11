@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $("#image").on("click", function (e) {
+                console.log(e.pageX + "," + e.pageY);
+            });
+        });
+        </script>
+    </head>
+    <body style="margin: 0px;">
+        <div><img id="image" src="ignore.bmp" alt=""></div>
+    </body>
+</html>
