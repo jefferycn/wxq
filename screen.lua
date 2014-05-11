@@ -8,6 +8,8 @@ function main()
     -- notifyMessage(y);
     r,g,b = getColorRGB(350,670);
     logDebug(r .. " " .. g .. " " .. b);
+    r,g,b = getColorRGB(350,470);
+    logDebug(r .. " " .. g .. " " .. b);
     -- r,g,b = getColorRGB(350,470);
     -- logDebug(r .. " " .. g .. " " .. b);
     -- r,g,b = getColorRGB(350,350);
