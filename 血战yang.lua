@@ -5,10 +5,10 @@ SCREEN_COLOR_BITS=32;
 
 count=1;
 round=1;
-bloodRound=90;
-bloodSkipRound=65;
+bloodRound=255;
+bloodSkipRound=240;
 hardRound=388;
-hardSkipRound=90;
+hardSkipRound=333;
 starRound=999;
 stopRound=9999;
 -- purple,red,green
@@ -181,6 +181,7 @@ function clickRound(x,y,dx,dy)
     	-- skip
     end
 
+    return true;
 end
 
 function click3Percent()
@@ -223,9 +224,9 @@ function click(x,y,dx,dy)
         touchDown(0, (x+dx), (y+dy));
         touchUp(0);
         clicked=1;
-        mSleep(100);
     end
 
+    return true;
 end
 
 function clickBloodBtn()
@@ -297,9 +298,12 @@ end
 
 function click30purple(r, g, b)
 	if r == 220 and g == 95 and b == 161 then
-		click(x_30,y_30,0,0);
-		status[0] = status[0] + 30;
-		return true;
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[0] = status[0] + 30;
+		end
+		return x;
 	end
 
 	return false;
@@ -307,9 +311,12 @@ end
 
 function click30red(r, g, b)
 	if r == 215 and g == 91 and b == 58 then
-		click(x_30,y_30,0,0);
-		status[1] = status[1] + 30;
-		return true;
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[1] = status[1] + 30;
+		end
+		return x;
 	end
 
 	return false;
@@ -317,9 +324,12 @@ end
 
 function click30green(r, g, b)
 	if r == 37 and g == 171 and b == 70 then
-		click(x_30,y_30,0,0);
-		status[2] = status[2] + 30;
-		return true;
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[2] = status[2] + 30;
+		end
+		return x;
 	end
 
 	return false;
@@ -327,9 +337,12 @@ end
 
 function click15purple(r, g, b)
 	if r == 222 and g == 95 and b == 161 then
-		click(x_15,y_15,0,0);
-		status[0] = status[0] + 15;
-		return true;
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[0] = status[0] + 15;
+		end
+		return x;
 	end
 
 	return false;
@@ -337,9 +350,12 @@ end
 
 function click15red(r, g, b)
 	if r == 211 and g == 87 and b == 49 then
-		click(x_15,y_15,0,0);
-		status[1] = status[1] + 15;
-		return true;
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[1] = status[1] + 15;
+		end
+		return x;
 	end
 
 	return false;
@@ -347,9 +363,12 @@ end
 
 function click15green(r, g, b)
 	if r == 34 and g == 171 and b == 68 then
-		click(x_15,y_15,0,0);
-		status[2] = status[2] + 15;
-		return true;
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[2] = status[2] + 15;
+		end
+		return x;
 	end
 
 	return false;
