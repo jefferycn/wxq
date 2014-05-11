@@ -5,24 +5,32 @@ SCREEN_COLOR_BITS=32;
 
 count=1;
 round=1;
-bloodRound=255;
-bloodSkipRound=240;
-hardRound=388;
-hardSkipRound=333;
-starRound=999;
+bloodRound=150;
+bloodSkipRound=130;
+hardRound=200;
+hardSkipRound=160;
+starRound=300;
 stopRound=9999;
--- purple,green,red
+-- purple,red,green
 status={};
-pidName="/var/touchelf/yang.pid";
+pidName="/var/touchelf/a3.pid";
 saveStars=0;
 -- 0 default, 1 blood first, 2 force first
 mode=0;
 prevX=-1;
 prevY=-1;
+x_30=350;
+y_30=670;
+x_15=350;
+y_15=470;
+x_3=350;
+y_3=350;
+clicked=0;
 
 function main()
 	loadSavedStatus();
 	while count<600000 do
+		clicked=0;
 		fightEvil();
 		mSleep(500);
 		if round >= stopRound then
@@ -112,124 +120,37 @@ function fightEvil()
 	end
 
 	if round<=starRound then
-	    --點加成
-		--30%氣血
-		x6, y6 =findColorInRegion(0xdc5fa1,350,670,350,670);
-
-		--30%武力
-		x7, y7 =findColorInRegion(0xd75b3a,350,670,350,670);
-
-		--30%防禦
-		-- x8, y8 =findColorInRegion(0xfcd466,350,670,350,670);
-
-		--30%身法
-		x9, y9 =findColorInRegion(0x25ab46,350,670,350,670);
-
-		--15%氣血
-		x10, y10 =findColorInRegion(0xde5fa1,350,470,350,470);
-
-		--15%武力
-		x11, y11 =findColorInRegion(0xd35731,350,470,350,470);
-
-		--15%防禦
-		-- x12, y12 =findColorInRegion(0xf7d360,350,470,360,480);
-
-		--15%身法
-		x13, y13 =findColorInRegion(0x22ab44,350,470,350,470);
+		r,g,b = getColorRGB(x_30,y_30);
+		r1,g1,b1 = getColorRGB(x_15,y_15);
 
 		-- red > purple * 0.7
 		if status[1] > 200 and status[0] * 0.7 < status[1] then
 			mode = 1;
-			-- then purple 15 first
-			if x6 ~= -1 then
-				-- 气血 30
-				status[0] = status[0] + 30;
-				click(x6,y6,0,0)
-			elseif x10 ~= -1 then
-				-- 气血 15
-				status[0] = status[0] + 15;
-				click(x10,y10,0,0)
-			elseif x7 ~= -1 then
-				-- 武力 30
-				status[1] = status[1] + 30;
-				click(x7,y7,0,0)
-			elseif x9 ~= -1 then
-				-- 身法 30
-				status[2] = status[2] + 30;
-				click(x9,y9,0,0)
-			elseif x11 ~= -1 then
-				-- 武力 15
-				status[1] = status[1] + 15;
-				click(x11,y11,0,0)
-			elseif x13 ~= -1 then
-				-- 身法 15
-				status[2] = status[2] + 15;
-				click(x13,y13,0,0)
-			else
-				-- 3%
-				click3Percent();
-			end
+			click30purple(r,g,b);
+			click15purple(r1,g1,b1);
+			click30red(r,g,b);
+			click30green(r,g,b);
+			click15red(r1,g1,b1);
+			click15green(r1,g1,b1);
+			click3Percent();
 		elseif status[0] > 200 and status[1] < status[0] * 0.6 then
 			mode = 2;
-			-- then red 15 first
-			if x7 ~= -1 then
-				-- 武力 30
-				status[1] = status[1] + 30;
-				click(x7,y7,0,0)
-			elseif x11 ~= -1 then
-				-- 武力 15
-				status[1] = status[1] + 15;
-				click(x11,y11,0,0)
-			elseif x6 ~= -1 then
-				-- 气血 30
-				status[0] = status[0] + 30;
-				click(x6,y6,0,0)
-			elseif x9 ~= -1 then
-				-- 身法 30
-				status[2] = status[2] + 30;
-				click(x9,y9,0,0)
-			elseif x10 ~= -1 then
-				-- 气血 15
-				status[0] = status[0] + 15;
-				click(x10,y10,0,0)
-			elseif x13 ~= -1 then
-				-- 身法 15
-				status[2] = status[2] + 15;
-				click(x13,y13,0,0)
-			else
-				-- 3%
-				click3Percent();
-			end
+			click30red(r,g,b);
+			click15red(r1,g1,b1);
+			click30purple(r,g,b);
+			click30green(r,g,b);
+			click15purple(r1,g1,b1);
+			click15green(r1,g1,b1);
+			click3Percent();
 		else
 			mode = 0;
-			if x6 ~= -1 then
-				-- 气血 30
-				status[0] = status[0] + 30;
-				click(x6,y6,0,0)
-			elseif x7 ~= -1 then
-				-- 武力 30
-				status[1] = status[1] + 30;
-				click(x7,y7,0,0)
-			elseif x9 ~= -1 then
-				-- 身法 30
-				status[2] = status[2] + 30;
-				click(x9,y9,0,0)
-			elseif x11 ~= -1 then
-				-- 武力 15
-				status[1] = status[1] + 15;
-				click(x11,y11,0,0)
-			elseif x10 ~= -1 then
-				-- 气血 15
-				status[0] = status[0] + 15;
-				click(x10,y10,0,0)
-			elseif x13 ~= -1 then
-				-- 身法 15
-				status[2] = status[2] + 15;
-				click(x13,y13,0,0)
-			else
-				-- 3%
-				click3Percent();
-			end
+			click30purple(r,g,b);
+			click30red(r,g,b);
+			click30green(r,g,b);
+			click15purple(r1,g1,b1);
+			click15red(r1,g1,b1);
+			click15green(r1,g1,b1);
+			click3Percent();
 		end
 	else
 		saveStars = 1;
@@ -239,7 +160,12 @@ end
 
 function clickRound(x,y,dx,dy)
 
+	if clicked == 1 then
+		return false;
+	end
+
 	if x ~= -1 and y ~= -1 and prevX == -1 and prevY == -1 then
+		clicked=1;
 		prevX = 1;
 		prevY = 1;
 		saveStatus();
@@ -255,43 +181,57 @@ function clickRound(x,y,dx,dy)
     	-- skip
     end
 
+    return true;
 end
 
 function click3Percent()
+	if clicked == 1 then
+		return false;
+	end
+
 	local r,g,b;
-	r,g,b = getColorRGB(350,350);
+	r,g,b = getColorRGB(x_3,y_3);
 
 	if r == 57 and g == 143 and b == 146 then
 		-- 3% 内力
-		click(350,350,0,0);
+		click(x_3,y_3,0,0);
 	elseif r == 203 and g == 94 and b == 147 then
 		-- 3% 气血
-		click(350,350,0,0);
+		click(x_3,y_3,0,0);
+		status[0] = status[0] + 3;
 	elseif r == 193 and g == 82 and b == 58 then
 		-- 3% 武力
-		click(350,350,0,0);
+		click(x_3,y_3,0,0);
+		status[1] = status[1] + 3;
 	elseif r == 235 and g == 193 and b == 94 then
 		-- 3% 防御
-		click(350,350,0,0);
+		click(x_3,y_3,0,0);
 	elseif r == 65 and g == 159 and b == 79 then
 		-- 3% 身法
-		click(350,350,0,0);
+		click(x_3,y_3,0,0);
+		status[2] = status[2] + 3;
 	else
 		-- skip
 	end
 end
 
 function click(x,y,dx,dy)
+	if clicked == 1 then
+		return false;
+	end
+
     if x ~= -1 and y ~= -1 then
-        touchDown(0, (x+dx), (y+dy))   ;
+        touchDown(0, (x+dx), (y+dy));
         touchUp(0);
+        clicked=1;
     end
 
+    return true;
 end
 
 function clickBloodBtn()
 	local x, y;
-	if round > hardSkipRound and isInBloodIgnoreList() then
+	if round > bloodSkipRound and isInBloodIgnoreList() then
 		clickHardBtn();
 	else
 		x, y =findColorInRegion(0x9f3637,143,250,143,250);
@@ -354,4 +294,82 @@ function isInHardIgnoreList()
 	if x ~= -1 and y ~= -1 then
 		return true;
 	end
+end
+
+function click30purple(r, g, b)
+	if r == 220 and g == 95 and b == 161 then
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[0] = status[0] + 30;
+		end
+		return x;
+	end
+
+	return false;
+end
+
+function click30red(r, g, b)
+	if r == 215 and g == 91 and b == 58 then
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[1] = status[1] + 30;
+		end
+		return x;
+	end
+
+	return false;
+end
+
+function click30green(r, g, b)
+	if r == 37 and g == 171 and b == 70 then
+		local x;
+		x = click(x_30,y_30,0,0);
+		if x then
+			status[2] = status[2] + 30;
+		end
+		return x;
+	end
+
+	return false;
+end
+
+function click15purple(r, g, b)
+	if r == 222 and g == 95 and b == 161 then
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[0] = status[0] + 15;
+		end
+		return x;
+	end
+
+	return false;
+end
+
+function click15red(r, g, b)
+	if r == 211 and g == 87 and b == 49 then
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[1] = status[1] + 15;
+		end
+		return x;
+	end
+
+	return false;
+end
+
+function click15green(r, g, b)
+	if r == 34 and g == 171 and b == 68 then
+		local x;
+		x = click(x_15,y_15,0,0);
+		if x then
+			status[2] = status[2] + 15;
+		end
+		return x;
+	end
+
+	return false;
 end
