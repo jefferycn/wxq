@@ -45,7 +45,7 @@ end
 
 function deletestatus()
 	-- 0
-	x, y =findColorInRegion(0xfff4bb,239,333,239,333);
+	x, y =findColorInRegion(0xf4c34e,231,857,231,857);
 	-- 2
 	x2, y2 =findColorInRegion(0xeccb62,236,876,236,876);
 	-- 1
