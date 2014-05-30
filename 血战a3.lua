@@ -49,7 +49,7 @@ function deletestatus()
 	-- 2
 	x2, y2 =findColorInRegion(0xeccb62,236,876,236,876);
 	-- 1
-	x1, y1 =findColorInRegion(0xff7631,205,329,205,329);
+	x1, y1 =findColorInRegion(0xf3c759,235,867,235,867);
 	if (x ~= -1 and y ~= -1) or (x2 ~= -1 and y2 ~= -1) or (x1 ~= -1 and y1 ~= -1) then
 		os.execute("rm " .. pidName);
 		return true;
