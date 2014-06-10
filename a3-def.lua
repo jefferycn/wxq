@@ -11,6 +11,8 @@ hardRound=188;
 hardSkipRound=160;
 starRound=480;
 stopRound=9999;
+yellowMax=600;
+greenMax=300;
 -- purple,red,yellow
 status={};
 pidName="/var/touchelf/a3.pid";
@@ -64,24 +66,26 @@ function loadSavedStatus()
 		end
 		-- the latest round is not save
 		-- +1 to revert it
-		round = status[3] + 1;
+		round = status[5] + 1;
 	else
 		status[0] = 0;
 		status[1] = 0;
 		status[2] = 0;
+		status[3] = 0;
+		status[4] = 0;
 		saveStatus();
 	end
 end
 
 function saveStatus()
 	file = io.open(pidName, "w");
-	status[3] = round;
-	file:write(status[0] .. "\n" .. status[1] .. "\n" .. status[2] .. "\n" .. status[3]);
+	status[5] = round;
+	file:write(status[0] .. "\n" .. status[1] .. "\n" .. status[2] .. "\n" .. status[3] .. "\n" .. status[4] .. "\n" .. status[5]);
 	file:close();
 end
 
 function logStatus()
-	logDebug(string.format("P: %s R: %s Y: %s on Round: %s mode: %s saving: %s", status[0], status[1], status[2], round, mode, saveStars));
+	logDebug(string.format("P: %s R: %s Y: %s B: %s G: %s on Round: %s saving: %s", status[0], status[1], status[2], status[3], status[4], round, saveStars));
 end
 
 function fightEvil()
@@ -124,9 +128,15 @@ function fightEvil()
 			click30purple(r,g,b);
 			click15purple(r1,g1,b1);
 			click30red(r,g,b);
-			click30yellow(r,g,b);
 			click15red(r1,g1,b1);
-			click15yellow(r1,g1,b1);
+			if status[2] < yellowMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
+			if status[4] < greenMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
 			click3Percent();
 		elseif status[0] > 200 and status[1] < status[0] * 0.6 then
 			mode = 2;
@@ -134,17 +144,29 @@ function fightEvil()
 			click15red(r1,g1,b1);
 			click30purple(r,g,b);
 			click15purple(r1,g1,b1);
-			click30yellow(r,g,b);
-			click15yellow(r1,g1,b1);
+			if status[2] < yellowMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
+			if status[4] < greenMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
 			click3Percent();
 		else
 			mode = 0;
 			click30purple(r,g,b);
 			click30red(r,g,b);
-			click30yellow(r,g,b);
 			click15purple(r1,g1,b1);
 			click15red(r1,g1,b1);
-			click15yellow(r1,g1,b1);
+			if status[2] < yellowMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
+			if status[4] < greenMax then
+				click30yellow(r,g,b);
+				click15yellow(r1,g1,b1);
+			end
 			click3Percent();
 		end
 	else
@@ -322,7 +344,7 @@ function click30green(r, g, b)
 		local x;
 		x = click(x_30,y_30,0,0);
 		if x then
-			status[2] = status[2] + 30;
+			status[4] = status[4] + 30;
 		end
 		return x;
 	end
@@ -361,7 +383,7 @@ function click15green(r, g, b)
 		local x;
 		x = click(x_15,y_15,0,0);
 		if x then
-			status[2] = status[2] + 15;
+			status[4] = status[4] + 15;
 		end
 		return x;
 	end
