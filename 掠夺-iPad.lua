@@ -34,22 +34,22 @@ function scramble()
 	-- keepScreen(true);
 
     --找殘片
-	x1, y1 =findColorInRegion(0x1a374b,1095,560,1095,560);
+	x1, y1 =findColorInRegion(0x1e3a4d,1095,560,1095,560);
 	click(x1, y1,0,0)
 
-	x2, y2 =findColorInRegion(0x214147,948,855,948,855);
+	x2, y2 =findColorInRegion(0x1b3e45,948,855,948,855);
 	click(x2,y2,0,0)
 
-	x3, y3 =findColorInRegion(0x173445,668,849,668,849);
+	x3, y3 =findColorInRegion(0x1a3d4c,668,849,668,849);
 	click(x3,y3,0,0)
 
-	x4, y4 =findColorInRegion(0x173445,668,257,668,257);
+	x4, y4 =findColorInRegion(0x1a3d4c,668,257,668,257);
 	click(x4,y4,0,0)
 
-	x5, y5 =findColorInRegion(0x213850,948,257,948,257);
+	x5, y5 =findColorInRegion(0x193c4b,948,257,948,257);
 	click(x5,y5,0,0)
 
-	x16, y16 =findColorInRegion(0x214348,530,560,530,560);
+	x16, y16 =findColorInRegion(0x1a3c45,530,560,530,560);
 	click(x16,y16,0,0)
 
 
