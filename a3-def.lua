@@ -130,8 +130,8 @@ function fightEvil()
 			click30red(r,g,b);
 			click15red(r1,g1,b1);
 			if status[4] < greenMax and round < bloodRound then
-				click30yellow(r,g,b);
-				click15yellow(r1,g1,b1);
+				click30green(r,g,b);
+				click15green(r1,g1,b1);
 			end
 			if status[2] < yellowMax then
 				click30yellow(r,g,b);
@@ -145,8 +145,8 @@ function fightEvil()
 			click30purple(r,g,b);
 			click15purple(r1,g1,b1);
 			if status[4] < greenMax and round < bloodRound then
-				click30yellow(r,g,b);
-				click15yellow(r1,g1,b1);
+				click30green(r,g,b);
+				click15green(r1,g1,b1);
 			end
 			if status[2] < yellowMax then
 				click30yellow(r,g,b);
