@@ -138,6 +138,7 @@ function finished()
 		if CLOSE_GAME == 1 then
 			gamequit();
 		end
+		logStatus();
 		logDebug("finished.");
 		return true;
 	end
@@ -218,7 +219,7 @@ function fightEvil()
 			if click15red() then
 				return;
 			end
-			if status[3] < BLUE_MAX then
+			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
 				if click30blue() then
 					return;
 				end
@@ -227,7 +228,7 @@ function fightEvil()
 				end
 			end
 			if status[2] < YELLOW_MAX then
-				if click30yellow() then
+				if click30yellow() and round > BLOOD_ROUND then
 					return;
 				end
 				if click15yellow() then
@@ -259,7 +260,7 @@ function fightEvil()
 			if click15purple() then
 				return;
 			end
-			if status[3] < BLUE_MAX then
+			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
 				if click30blue() then
 					return;
 				end
@@ -267,7 +268,7 @@ function fightEvil()
 					return;
 				end
 			end
-			if status[2] < YELLOW_MAX then
+			if status[2] < YELLOW_MAX and round > BLOOD_ROUND then
 				if click30yellow() then
 					return;
 				end
@@ -300,7 +301,7 @@ function fightEvil()
 			if click15red() then
 				return;
 			end
-			if status[3] < BLUE_MAX then
+			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
 				if click30blue() then
 					return;
 				end
@@ -308,7 +309,7 @@ function fightEvil()
 					return;
 				end
 			end
-			if status[2] < YELLOW_MAX then
+			if status[2] < YELLOW_MAX and round > BLOOD_ROUND then
 				if click30yellow() then
 					return;
 				end
@@ -396,7 +397,7 @@ end
 function clickRound(color, x, y)
 	if clickBtn(color, x, y) then
 		saveStatus();
-		logStatus();
+		-- logStatus();
     end
 
     return true;
