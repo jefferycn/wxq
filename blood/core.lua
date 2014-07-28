@@ -219,33 +219,6 @@ function fightEvil()
 			if click15red() then
 				return;
 			end
-			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
-				if click30blue() then
-					return;
-				end
-				if click15blue() then
-					return;
-				end
-			end
-			if status[2] < YELLOW_MAX then
-				if click30yellow() and round > BLOOD_ROUND then
-					return;
-				end
-				if click15yellow() then
-					return;
-				end
-			end
-			if status[4] < GREEN_MAX and round < BLOOD_ROUND then
-				if click30green() then
-					return;
-				end
-				if click15green() then
-					return;
-				end
-			end
-			if click3Percent() then
-				return;
-			end
 		elseif status[0] > 200 and status[1] < status[0] * PURPLE_RED_RATIO_MIN then
 			mode = 2;
 			if click30red() then
@@ -258,33 +231,6 @@ function fightEvil()
 				return;
 			end
 			if click15purple() then
-				return;
-			end
-			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
-				if click30blue() then
-					return;
-				end
-				if click15blue() then
-					return;
-				end
-			end
-			if status[2] < YELLOW_MAX and round > BLOOD_ROUND then
-				if click30yellow() then
-					return;
-				end
-				if click15yellow() then
-					return;
-				end
-			end
-			if status[4] < GREEN_MAX and round < BLOOD_ROUND then
-				if click30green() then
-					return;
-				end
-				if click15green() then
-					return;
-				end
-			end
-			if click3Percent() then
 				return;
 			end
 		else
@@ -301,33 +247,28 @@ function fightEvil()
 			if click15red() then
 				return;
 			end
-			if status[3] < BLUE_MAX and round > BLOOD_ROUND then
-				if click30blue() then
-					return;
-				end
-				if click15blue() then
-					return;
-				end
-			end
-			if status[2] < YELLOW_MAX and round > BLOOD_ROUND then
-				if click30yellow() then
-					return;
-				end
-				if click15yellow() then
-					return;
-				end
-			end
-			if status[4] < GREEN_MAX and round < BLOOD_ROUND then
-				if click30green() then
-					return;
-				end
-				if click15green() then
-					return;
-				end
-			end
-			if click3Percent() then
-				return;
-			end
+		end
+		
+		if click30green() then
+			return;
+		end
+		if click30yellow() then
+			return;
+		end
+		if click30blue() then
+			return;
+		end
+		if click15green() then
+			return;
+		end
+		if click15yellow() then
+			return;
+		end
+		if click15blue() then
+			return;
+		end
+		if click3Percent() then
+			return;
 		end
 	else
 		saveStars = 1;
@@ -481,7 +422,7 @@ function click30red()
 end
 
 function click30yellow()
-	if clickBtn(YELLOW_30, ENHANCE_X, ENHANCE_Y_30) then
+	if status[2] < YELLOW_MAX and clickBtn(YELLOW_30, ENHANCE_X, ENHANCE_Y_30) then
 		status[2] = status[2] + 30;
 		return true;
 	end
@@ -492,7 +433,7 @@ function click30yellow()
 end
 
 function click30blue()
-	if clickBtn(BLUE_30, ENHANCE_X, ENHANCE_Y_30) then
+	if status[3] < BLUE_MAX and clickBtn(BLUE_30, ENHANCE_X, ENHANCE_Y_30) then
 		status[3] = status[3] + 30;
 		return true;
 	end
@@ -503,7 +444,7 @@ function click30blue()
 end
 
 function click30green()
-	if clickBtn(GREEN_30, ENHANCE_X, ENHANCE_Y_30) then
+	if status[4] < GREEN_MAX and clickBtn(GREEN_30, ENHANCE_X, ENHANCE_Y_30) then
 		status[4] = status[4] + 30;
 		return true;
 	end
@@ -536,7 +477,7 @@ function click15red()
 end
 
 function click15yellow()
-	if clickBtn(YELLOW_15, ENHANCE_X, ENHANCE_Y_15) then
+	if status[2] < YELLOW_MAX and clickBtn(YELLOW_15, ENHANCE_X, ENHANCE_Y_15) then
 		status[2] = status[2] + 15;
 		return true;
 	end
@@ -547,7 +488,7 @@ function click15yellow()
 end
 
 function click15blue()
-	if clickBtn(BLUE_15, ENHANCE_X, ENHANCE_Y_15) then
+	if status[3] < BLUE_MAX and clickBtn(BLUE_15, ENHANCE_X, ENHANCE_Y_15) then
 		status[3] = status[3] + 15;
 		return true;
 	end
@@ -558,7 +499,7 @@ function click15blue()
 end
 
 function click15green()
-	if clickBtn(GREEN_15, ENHANCE_X, ENHANCE_Y_15) then
+	if status[4] < GREEN_MAX and clickBtn(GREEN_15, ENHANCE_X, ENHANCE_Y_15) then
 		status[4] = status[4] + 15;
 		return true;
 	end
