@@ -4,13 +4,16 @@ SCREEN_COLOR_BITS=32
 count=1
 round=1
 saveStars=0
+protecter=0
 -- 0 default, 1 blood first, 2 force first
 mode=0
 
-REGION_SIZE=10;
+REGION_SIZE=3;
 
 -- purple,red,yellow,blue,green
 status={};
+
+FUZZY_NUM=97
 
 BLOOD_BTN=0xCD5844
 BLOOD_BTN_X=130
@@ -184,12 +187,13 @@ function fightEvil()
 	count = count + 1;
 
 	click(20, 20, 0, 0);
-	mSleep(300);
+	mSleep(100);
 	clickBtn(SKIP_BTN, SKIP_BTN_X, SKIP_BTN_Y);
 
-	if clickBtn(CONTINUE_BTN, CONTINUE_BTN_X, CONTINUE_BTN_Y) then
+	if clickBtn(CONTINUE_BTN, CONTINUE_BTN_X, CONTINUE_BTN_Y) and protecter == 0 then
 		round = round + 1;
-		mSleep(200);
+		protecter = 1;
+		mSleep(300);
 	end
 
 	clickBtn(REWARD_BTN, REWARD_BTN_X, REWARD_BTN_Y);
@@ -205,7 +209,7 @@ function fightEvil()
 	keepScreen(true);
 	if round <= STAR_ROUND then
 		-- red > purple * 0.7
-		if status[1] > 200 and status[0] * PURPLE_RED_RATIO_MAX < status[1] then
+		if round > 200 and status[0] * PURPLE_RED_RATIO_MAX < status[1] then
 			mode = 1;
 			if click30purple() then
 				return;
@@ -219,7 +223,7 @@ function fightEvil()
 			if click15red() then
 				return;
 			end
-		elseif status[0] > 200 and status[1] < status[0] * PURPLE_RED_RATIO_MIN then
+		elseif round > 200 and status[1] < status[0] * PURPLE_RED_RATIO_MIN then
 			mode = 2;
 			if click30red() then
 				return;
@@ -252,19 +256,19 @@ function fightEvil()
 		if click30green() then
 			return;
 		end
-		if click30yellow() then
+		if click30blue() then
 			return;
 		end
-		if click30blue() then
+		if click30yellow() then
 			return;
 		end
 		if click15green() then
 			return;
 		end
-		if click15yellow() then
+		if click15blue() then
 			return;
 		end
-		if click15blue() then
+		if click15yellow() then
 			return;
 		end
 		if click3Percent() then
@@ -308,7 +312,7 @@ function findBtn(color, x, y)
 	y1 = y - REGION_SIZE;
 	y2 = y + REGION_SIZE;
 
-	x, y = findColorInRegion(color, x1, y1, x2, y2);
+	x, y = findColorInRegionFuzzy(color, FUZZY_NUM, x1, y1, x2, y2);
 	if x ~= -1 and y ~= -1 then
 		return true;
 	end
@@ -319,7 +323,7 @@ end
 function clickBtn(color, x, y)
 	if findBtn(color, x, y) then
 		click(x, y, 0, 0);
-		mSleep(500);
+		mSleep(100);
 		return true;
 	end
 
@@ -328,8 +332,8 @@ end
 
 function click(x, y, dx, dy)
     if x ~= -1 and y ~= -1 then
-        touchDown(0, (x + dx), (y + dy));
-        touchUp(0);
+	touchDown(0, (x + dx), (y + dy));
+	touchUp(0);
     end
 
     return true;
@@ -338,6 +342,7 @@ end
 function clickRound(color, x, y)
 	if clickBtn(color, x, y) then
 		saveStatus();
+		protecter = 0;
 		-- logStatus();
     end
 
