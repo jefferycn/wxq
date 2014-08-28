@@ -2,18 +2,18 @@ temp_route="no_route";
 a=1;
 npc_route={};
 --npc_route[0]="/var/touchelf/clb-cj-p1";
-npc_route[1] ="/var/touchelf/wxqpic/ldnpc/npc01.bmp";
-npc_route[2] ="/var/touchelf/wxqpic/ldnpc/npc02.bmp";
-npc_route[3] ="/var/touchelf/wxqpic/ldnpc/npc03.bmp";
-npc_route[4] ="/var/touchelf/wxqpic/ldnpc/npc04.bmp";
-npc_route[5] ="/var/touchelf/wxqpic/ldnpc/npc05.bmp";
-npc_route[6] ="/var/touchelf/wxqpic/ldnpc/npc06.bmp";
-npc_route[7] ="/var/touchelf/wxqpic/ldnpc/npc07.bmp";
-npc_route[8] ="/var/touchelf/wxqpic/ldnpc/npc11.bmp";
-npc_route[9] ="/var/touchelf/wxqpic/ldnpc/npc12.bmp";
-npc_route[10]="/var/touchelf/wxqpic/ldnpc/npc13.bmp";
-npc_route[11]="/var/touchelf/wxqpic/ldnpc/npc14.bmp";
-npc_route[12]="/var/touchelf/wxqpic/ldnpc/npc15.bmp";
+npc_route[1] ="/var/touchelf/scripts/wxqpic/ldnpc/npc01.bmp";
+npc_route[2] ="/var/touchelf/scripts/wxqpic/ldnpc/npc02.bmp";
+npc_route[3] ="/var/touchelf/scripts/wxqpic/ldnpc/npc03.bmp";
+npc_route[4] ="/var/touchelf/scripts/wxqpic/ldnpc/npc04.bmp";
+npc_route[5] ="/var/touchelf/scripts/wxqpic/ldnpc/npc05.bmp";
+npc_route[6] ="/var/touchelf/scripts/wxqpic/ldnpc/npc06.bmp";
+npc_route[7] ="/var/touchelf/scripts/wxqpic/ldnpc/npc07.bmp";
+npc_route[8] ="/var/touchelf/scripts/wxqpic/ldnpc/npc11.bmp";
+npc_route[9] ="/var/touchelf/scripts/wxqpic/ldnpc/npc12.bmp";
+npc_route[10]="/var/touchelf/scripts/wxqpic/ldnpc/npc13.bmp";
+npc_route[11]="/var/touchelf/scripts/wxqpic/ldnpc/npc14.bmp";
+npc_route[12]="/var/touchelf/scripts/wxqpic/ldnpc/npc15.bmp";
 
 -- 主入口函数
 function main()
