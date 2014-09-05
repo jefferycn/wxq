@@ -8,6 +8,8 @@
 
 Jeffery Allrights Reserved, [http://youjf.com/](http://youjf.com/)
 
+血战脚本 [奇米娛樂平台](http://wxqz.kimi.com.tw/) 版本可用。
+
 ## 需求
 
 * iPhone 4/ iPhone 4S
