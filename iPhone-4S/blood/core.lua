@@ -129,6 +129,7 @@ end
 
 function gamequit()
 	appKill('com.koramgame.dhjhchs');
+	appKill('com.ifun.dhjhcht');
 end
 
 function finished()
@@ -193,7 +194,6 @@ function fightEvil()
 	if clickBtn(CONTINUE_BTN, CONTINUE_BTN_X, CONTINUE_BTN_Y) and protecter == 0 then
 		round = round + 1;
 		protecter = 1;
-		mSleep(300);
 	end
 
 	clickBtn(REWARD_BTN, REWARD_BTN_X, REWARD_BTN_Y);
