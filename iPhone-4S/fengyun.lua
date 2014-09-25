@@ -71,7 +71,6 @@ function main()
 	then   isitend=1;
 	end
 	
-	logDebug(string.format("主界面判定： gc_x1=%s,gc_y1=%s ;判断结果:isitend=%s",gc_x1,gc_y1,isitend));
 	
 	--是否在换人中
 	if hr_x1~= -1 and hr_y1~= -1 and 
@@ -95,7 +94,6 @@ function main()
 	if over_x1~= -1 and over_y1~= -1 and 
 	   over_x2~= -1 and over_y2~= -1 
 	then   isitend=1;
-	logDebug(string.format("是否全部打完: over_x1=%s,over_y1=%s ;判断结果:isitend=%s",over_x1,over_y1,isitend));
 	end
 	--闪退后再进去：
 	if home_x1~= -1 and home_y1~= -1 and 
@@ -141,7 +139,7 @@ end
 
 
 function heartBeat()
-	touchDown(0,638,479)
+	touchDown(0,345,678)
     touchUp(0);
 	mSleep(300);
 end	
