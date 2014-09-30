@@ -91,10 +91,11 @@ CLOSE_GAME=0
 
 ### 掠夺脚本
 
-所需脚本文件 `iPhone-4S/rob.lua`, `iPhone-4S/wxqpic/*`。
+所需脚本文件 `iPhone-4S/rob.lua`, `iPhone-4S/pic/*`。
 
 > “掠夺” “武功” 按下音量键开始。
-> 装备，阵法，口诀 可能会在拼合以后停止
+> 装备，阵法，口诀 可能会在拼合以后停止。
+> pic 文件夹在手机上的正确位置为：`/var/touchelf/scripts/pic`
 
 
 ### 不败脚本
