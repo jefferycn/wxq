@@ -99,9 +99,9 @@ SKIP_BTN=0x1A7570
 SKIP_BTN_X=32
 SKIP_BTN_Y=480
 
--- FUWEN_BTN=0XF0DD9D
--- FUWEN_BTN_X=200
--- FUWEN_BTN_Y=480
+FUWEN_BTN=0XF0DD9D
+FUWEN_BTN_X=200
+FUWEN_BTN_Y=480
 
 function run()
 	mSleep(3000);
@@ -137,9 +137,9 @@ function gamequit()
 end
 
 function finished()
-	-- if clickBtn(FUWEN_BTN, FUWEN_BTN_X, FUWEN_BTN_Y) then
-	-- 	mSleep(200);
-	-- end
+	if clickBtn(FUWEN_BTN, FUWEN_BTN_X, FUWEN_BTN_Y) then
+		mSleep(200);
+	end
 	if findBtn(BOUNS_BTN, BOUNS_BTN_X, BOUNS_BTN_Y) and findBtn(BOUNS_BTN_CHECKER, BOUNS_BTN_CHECKER_X, BOUNS_BTN_CHECKER_Y) then
 		clickBtn(BOUNS_BTN, BOUNS_BTN_X, BOUNS_BTN_Y);
 		getBonus();
