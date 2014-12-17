@@ -72,9 +72,13 @@ SHIWANG_COLOR=0x66322F
 SHIWANG_X=234
 SHIWANG_Y=480
 
-BOUNS_BTN=0xFFFD77
+BOUNS_BTN=0XFFFC77
 BOUNS_BTN_X=235
 BOUNS_BTN_Y=512
+
+BOUNS_BTN_CHECKER=0XD90F09
+BOUNS_BTN_CHECKER_X=333
+BOUNS_BTN_CHECKER_Y=512
 
 BOUNS_BTN0_X=200
 BOUNS_BTN1_Y=100
@@ -95,9 +99,9 @@ SKIP_BTN=0x1A7570
 SKIP_BTN_X=32
 SKIP_BTN_Y=480
 
-FUWEN_BTN=0XF0DD9D
-FUWEN_BTN_X=200
-FUWEN_BTN_Y=480
+-- FUWEN_BTN=0XF0DD9D
+-- FUWEN_BTN_X=200
+-- FUWEN_BTN_Y=480
 
 function run()
 	mSleep(3000);
@@ -133,10 +137,11 @@ function gamequit()
 end
 
 function finished()
-	if clickBtn(FUWEN_BTN, FUWEN_BTN_X, FUWEN_BTN_Y) then
-		mSleep(200);
-	end
-	if clickBtn(BOUNS_BTN, BOUNS_BTN_X, BOUNS_BTN_Y) then
+	-- if clickBtn(FUWEN_BTN, FUWEN_BTN_X, FUWEN_BTN_Y) then
+	-- 	mSleep(200);
+	-- end
+	if findBtn(BOUNS_BTN, BOUNS_BTN_X, BOUNS_BTN_Y) and findBtn(BOUNS_BTN_CHECKER, BOUNS_BTN_CHECKER_X, BOUNS_BTN_CHECKER_Y) then
+		clickBtn(BOUNS_BTN, BOUNS_BTN_X, BOUNS_BTN_Y);
 		getBonus();
 		os.execute("rm " .. PID_NAME);
 		if CLOSE_GAME == 1 then
@@ -188,7 +193,7 @@ function fightEvil()
 	count = count + 1;
 
 	click(20, 20, 0, 0);
-	mSleep(100);
+	mSleep(300);
 	clickBtn(SKIP_BTN, SKIP_BTN_X, SKIP_BTN_Y);
 
 	if clickBtn(CONTINUE_BTN, CONTINUE_BTN_X, CONTINUE_BTN_Y) and protecter == 0 then
