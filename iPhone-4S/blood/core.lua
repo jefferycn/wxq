@@ -120,7 +120,6 @@ function run()
 end
 
 function getBonus()
-	keepScreen(true);
 	mSleep(1000);
 	click(BOUNS_BTN0_X, BOUNS_BTN1_Y, 0, 0);
 	mSleep(1000);
@@ -191,7 +190,6 @@ function logStatus()
 end
 
 function fightEvil()
-	keepScreen(false);
 	count = count + 1;
 
 	click(20, 20, 0, 0);
@@ -213,7 +211,6 @@ function fightEvil()
 		clickNormalBtn();
 	end
 
-	keepScreen(true);
 	if round <= STAR_ROUND then
 		-- red > purple * 0.7
 		if round > 200 and status[0] * PURPLE_RED_RATIO_MAX < status[1] then
@@ -288,7 +285,6 @@ function fightEvil()
 		end
 	end
 
-	keepScreen(false);
 end
 
 function click3Percent()
@@ -417,7 +413,6 @@ function click30purple()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -428,7 +423,6 @@ function click30red()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -439,7 +433,6 @@ function click30yellow()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -450,7 +443,6 @@ function click30blue()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -461,7 +453,6 @@ function click30green()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -472,7 +463,6 @@ function click15purple()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -483,7 +473,6 @@ function click15red()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -494,7 +483,6 @@ function click15yellow()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -505,7 +493,6 @@ function click15blue()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -516,7 +503,6 @@ function click15green()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -527,7 +513,6 @@ function click3purple()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -538,7 +523,6 @@ function click3red()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -549,7 +533,6 @@ function click3yellow()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -560,7 +543,6 @@ function click3blue()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
@@ -571,7 +553,6 @@ function click3green()
 		return true;
 	end
 
-	keepScreen(false);
 
 	return false;
 end
