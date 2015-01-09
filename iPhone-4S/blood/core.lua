@@ -8,12 +8,12 @@ protecter=0
 -- 0 default, 1 blood first, 2 force first
 mode=0
 
-REGION_SIZE=3;
+REGION_SIZE=2
 
 -- purple,red,yellow,blue,green
 status={};
 
-FUZZY_NUM=97
+FUZZY_NUM=99
 
 BLOOD_BTN=0xE26554
 BLOOD_BTN_X=130
