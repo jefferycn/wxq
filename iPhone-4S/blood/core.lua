@@ -13,7 +13,7 @@ REGION_SIZE=2
 -- purple,red,yellow,blue,green
 status={};
 
-FUZZY_NUM=99
+FUZZY_NUM=98
 
 BLOOD_BTN=0xE26554
 BLOOD_BTN_X=130
