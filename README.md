@@ -12,6 +12,9 @@ Jeffery Allrights Reserved, [http://youjf.com/](http://youjf.com/)
 
 ## 更新日志
 
+### 2015-1-15
+* 重构核心代码，现在能更智能的识别出加成的颜色。
+
 ### 2014-12-29
 * 按照台服最新客户端，更新了血战、力战、奋战的按钮代码 （使用 euphoa@baidu 的代码）
 * 增加启动对话框 （使用 euphoa@baidu 的代码）
