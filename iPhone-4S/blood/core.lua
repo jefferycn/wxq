@@ -9,13 +9,13 @@ protecter=0
 -- 0 default, 1 blood first, 2 force first
 mode=0
 
-REGION_SIZE=1
+REGION_SIZE=2
 
 -- purple,red,yellow,blue,green
 status={};
 
 FUZZY_NUM=98
-ENHANCE_FUZZY_NUM=70
+ENHANCE_FUZZY_NUM=60
 
 BLOOD_BTN=0xE26554
 BLOOD_BTN_X=130
@@ -38,21 +38,11 @@ ENHANCE_WINDOW_Y2=360
 ENHANCE_WINDOW_1=0xB08844
 ENHANCE_WINDOW_2=0xE1D29D
 
--- PURPLE_3=0xDE5FA1
--- PURPLE_15=0xDE62A4
 PURPLE=0xDE5EA0
--- RED_3=0xD65733
--- RED_15=0xD65833
 RED=0xD65733
--- YELLOW_3=0xFAD45C
--- YELLOW_15=0xFAD353
 YELLOW=0xFAD460
--- BLUE_3=0x2E9DA4
--- BLUE_15=0x2D9EA4
 BLUE=0x2E9DA4
--- GREEN_3=0x25A944
--- GREEN_15=0x25A944
-GREEN=0x26AA45
+GREEN=0x25A944
 
 TIANJI_COLOR=0x18637B
 TIANJI_X=234
@@ -232,149 +222,149 @@ function fightEvil()
 		return;
 	end
 
-	color3min, color3max, color15min, color15max, color30min, color30max = findEnhanceColor();
+	color3, color15, color30 = findEnhanceColor();
 
 	if round <= STAR_ROUND then
 		-- red > purple * 0.7
 		if round > 200 and status[0] * PURPLE_RED_RATIO_MAX < status[1] then
 			mode = 1;
-			if isPurple(color30min, color30max) then
-				click30();
+			if color30 == 'purple' then
+				click30(color30);
 				status[0] = status[0] + 30;
 				return;
 			end
-			if isPurple(color15min, color15max) then
-				click15();
+			if color15 == 'purple' then
+				click15(color15);
 				status[0] = status[0] + 15;
 				return;
 			end
-			if isRed(color30min, color30max) then
-				click30();
+			if color30 == 'red' then
+				click30(color30);
 				status[1] = status[1] + 30;
 				return;
 			end
-			if isRed(color15min, color15max) then
-				click15();
+			if color15 == 'red' then
+				click15(color15);
 				status[1] = status[1] + 15;
 				return;
 			end
 		elseif round > 200 and status[1] < status[0] * PURPLE_RED_RATIO_MIN then
 			mode = 2;
-			if isRed(color30min, color30max) then
-				click30();
+			if color30 == 'red' then
+				click30(color30);
 				status[1] = status[1] + 30;
 				return;
 			end
-			if isRed(color15min, color15max) then
-				click15();
+			if color15 == 'red' then
+				click15(color15);
 				status[1] = status[1] + 15;
 				return;
 			end
-			if isPurple(color30min, color30max) then
-				click30();
+			if color30 == 'purple' then
+				click30(color30);
 				status[0] = status[0] + 30;
 				return;
 			end
-			if isPurple(color15min, color15max) then
-				click15();
+			if color15 == 'purple' then
+				click15(color15);
 				status[0] = status[0] + 15;
 				return;
 			end
 		else
 			mode = 0;
-			if isPurple(color30min, color30max) then
-				click30();
+			if color30 == 'purple' then
+				click30(color30);
 				status[0] = status[0] + 30;
 				return;
 			end
-			if isRed(color30min, color30max) then
-				click30();
+			if color30 == 'red' then
+				click30(color30);
 				status[1] = status[1] + 30;
 				return;
 			end
-			if isPurple(color15min, color15max) then
-				click15();
+			if color15 == 'purple' then
+				click15(color15);
 				status[0] = status[0] + 15;
 				return;
 			end
-			if isRed(color15min, color15max) then
-				click15();
+			if color15 == 'red' then
+				click15(color15);
 				status[1] = status[1] + 15;
 				return;
 			end
 		end
 
-		if status[4] < GREEN_MAX and isGreen(color30min, color30max) then
-			click30();
+		if status[4] < GREEN_MAX and color30 == 'green' then
+			click30(color30);
 			status[4] = status[4] + 30;
 			return;
 		end
-		if status[3] < BLUE_MAX and isBlue(color30min, color30max) then
-			click30();
+		if status[3] < BLUE_MAX and color30 == 'blue' then
+			click30(color30);
 			status[3] = status[3] + 30;
 			return;
 		end
-		if status[2] < YELLOW_MAX and isYellow(color30min, color30max) then
-			click30();
+		if status[2] < YELLOW_MAX and color30 == 'yellow' then
+			click30(color30);
 			status[2] = status[2] + 30;
 			return;
 		end
-		if status[4] < GREEN_MAX and isGreen(color15min, color15max) then
-			click15();
+		if status[4] < GREEN_MAX and color15 == 'green' then
+			click15(color15);
 			status[4] = status[4] + 15;
 			return;
 		end
-		if status[3] < BLUE_MAX and isBlue(color15min, color15max) then
-			click15();
+		if status[3] < BLUE_MAX and color15 == 'blue' then
+			click15(color15);
 			status[3] = status[3] + 15;
 			return;
 		end
-		if status[2] < YELLOW_MAX and isYellow(color15min, color15max) then
-			click15();
+		if status[2] < YELLOW_MAX and color15 == 'yellow' then
+			click15(color15);
 			status[2] = status[2] + 15;
 			return;
 		end
 		
-		click3Percent(color3min, color3max);
+		click3Percent(color3);
 		return;
 	else
 		saveStars = 1;
-		click3Percent(color3min, color3max);
+		click3Percent(color3);
 		return;
 	end
 
 end
 
-function click30()
+function click30(color)
 	click(ENHANCE_X, ENHANCE_Y_30, 0, 0);
-	log("30");
+	log(color .. ": 30");
 end
 
-function click15()
+function click15(color)
 	click(ENHANCE_X, ENHANCE_Y_15, 0, 0);
-	log("15");
+	log(color .. ": 15");
 end
 
-function click3()
+function click3(color)
 	click(ENHANCE_X, ENHANCE_Y_3, 0, 0);
-	log("3");
+	log(color .. ": 3");
 end
 
-function click3Percent(color_min, color_max)
-	click3();
-	if isPurple(color_min, color_max) then
+function click3Percent(color)
+	click3(color);
+	if color == 'purple' then
 		status[0] = status[0] + 3;
 		return;
-	elseif isRed(color_min, color_max) then
+	elseif color == 'red' then
 		status[1] = status[1] + 3;
 		return;
-	elseif isYellow(color_min, color_max) then
+	elseif color == 'yellow' then
 		status[2] = status[2] + 3;
 		return;
-	elseif isBlue(color_min, color_max) then
+	elseif color == 'blue' then
 		status[3] = status[3] + 3;
 		return;
-	elseif isGreen(color_min, color_max) then
+	elseif color == 'green' then
 		status[4] = status[4] + 3;
 		return;
 	else
@@ -382,113 +372,45 @@ function click3Percent(color_min, color_max)
 	end
 end
 
-function getColorHuman(color_min, color_max)
-	if isPurple(color_min, color_max) then
-		return "purple";
-	elseif isRed(color_min, color_max) then
-		return "red";
-	elseif isYellow(color_min, color_max) then
-		return "yellow";
-	elseif isBlue(color_min, color_max) then
-		return "blue";
-	elseif isGreen(color_min, color_max) then
-		return "green";
-	else
-		logDebug("fatal error, color can't be detected.");
-	end
-end
-
-function isPurple(color_min, color_max)
-	if color_min < PURPLE and color_max > PURPLE then
-		log("purple");
-		return true;
-	end
-
-	return false;
-end
-
-function isRed(color_min, color_max)
-	if color_min < RED and color_max > RED then
-		log("red");
-		return true;
-	end
-
-	return false;
-end
-
-function isYellow(color_min, color_max)
-	if color_min < YELLOW and color_max > YELLOW then
-		log("yellow");
-		return true;
-	end
-
-	return false;
-end
-
-function isBlue(color_min, color_max)
-	if color_min < BLUE and color_max > BLUE then
-		log("blue");
-		return true;
-	end
-
-	return false;
-end
-
-function isGreen(color_min, color_max)
-	-- enlarge the min and max
-	if color_min * 0.9 < GREEN and color_max * 1.1 > GREEN then
-		log("green");
-		return true;
-	end
-
-	return false;
-end
-
 function findEnhanceColor()
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_3);
-    color3min, color3max = getColorFuzzy(r, g, b);
+    color3 = getColorHuman(r, g, b);
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_15);
-    color15min, color15max = getColorFuzzy(r, g, b);
+    color15 = getColorHuman(r, g, b);
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_30);
-    color30min, color30max = getColorFuzzy(r, g, b);
+    color30 = getColorHuman(r, g, b);
 
-	log("find colors: ");
-	log("--------");
-	getColorHuman(color3min, color3max);
-	getColorHuman(color15min, color15max);
-	getColorHuman(color30min, color30max);
-	log("--------");
+	log("find colors: " .. color3 .. " " .. color15 .. " " .. color30);
     
-    return color3min, color3max, color15min, color15max, color30min, color30max;
+    return color3, color15, color30;
 end
 
-function getColorFuzzy(r, g, b)
-    r_min = r * (1 - (100 - ENHANCE_FUZZY_NUM) / 5000);
-    r_max = r * (1 + (200 - ENHANCE_FUZZY_NUM) / 5000);
-    g_min = g * (1 - (100 - ENHANCE_FUZZY_NUM) / 5000);
-    g_max = g * (1 + (200 - ENHANCE_FUZZY_NUM) / 5000);
-    b_min = b * (1 - (100 - ENHANCE_FUZZY_NUM) / 5000);
-    b_max = b * (1 + (200 - ENHANCE_FUZZY_NUM) / 5000);
-
-    return rgb2Hex(r_min, g_min, b_min), rgb2Hex(r_max, g_max, b_max);
-end
-
-function hex(n)
-    if n > 255 then
-        n = 255;
+function getColorHuman(r, g, b)
+    -- ff0000
+    if r > 127 and g < 127 and b < 127 then
+        return 'red';
     end
-    return lpad(string.format("%x", n));
-end
-
-function rgb2Hex(r, g, b)
-    return tonumber(hex(r) .. hex(g) .. hex(b), 16);
-end
-
-function lpad(r)
-    if string.len(r) == 1 then
-        r = "0" .. r;
+    -- 00ff00
+    if r < 127 and g > 127 and b < 127 then
+        return 'green';
     end
-    return r;
+    -- 0000ff
+    -- exception of g
+    if r < 127 and g > 127 and b > 127 then
+        return 'blue';
+    end
+    -- ffff00
+    if r > 127 and g > 127 and b < 127 then
+        return 'yellow';
+    end
+    -- ff00ff
+    if r > 127 and g < 127 and b > 127 then
+        return 'purple';
+    end
+
+    logDebug('color not recognized');
+
+    return 'color';
 end
 
 function findBtn(color, x, y)

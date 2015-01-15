@@ -6,7 +6,7 @@ ENHANCE_Y_30=660
 ENHANCE_FUZZY_NUM=70
 
 function main()
-    -- mSleep(3000);
+    mSleep(3000);
     -- snapshotScreen("/var/touchelf/x.bmp");
     -- snapshotRegion("/var/touchelf/x1.bmp",528,70,548,110);
     -- snapshotRegion("/var/touchelf/x2.bmp",528,310,548,350);
@@ -16,9 +16,9 @@ function main()
     -- notifyMessage(x);
     -- notifyMessage(y);
     -- r,g,b = getColorRGB(520, 240);
-    a, b, c, d, e, f = findEnhanceColor();
-    logDebug(a .. " " .. c .. " " .. e);
-    logDebug(b .. " " .. d .. " " .. f);
+    findEnhanceColor();
+    -- logDebug(a .. " " .. c .. " " .. e);
+    -- logDebug(b .. " " .. d .. " " .. f);
     -- r,g,b = getColorRGB(350,470);
     -- logDebug(r .. " " .. g .. " " .. b);
     -- r,g,b = getColorRGB(350,350);
@@ -33,25 +33,47 @@ end
 
 function findEnhanceColor()
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_3);
-    logDebug('find \\e]4;1;rgb:' .. hex(r) .. "/" .. hex(g) .. "/" .. hex(b) .. '\\e\\\\\\e[31m██\\e[m\\n');
-    color3min, color3max = getColorFuzzy(r, g, b);
+    color3 = getColorHuman(r, g, b);
+    color3hex = rgb2Hex(r, g, b);
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_15);
-    color15min, color15max = getColorFuzzy(r, g, b);
+    color15 = getColorHuman(r, g, b);
+    color15hex = rgb2Hex(r, g, b);
     r,g,b = getColorRGB(ENHANCE_X, ENHANCE_Y_30);
-    color30min, color30max = getColorFuzzy(r, g, b);
+    color30 = getColorHuman(r, g, b);
+    color30hex = rgb2Hex(r, g, b);
+
+    logDebug("find colors: " .. color3hex .. " " .. color15hex .. " " .. color30hex);
+    logDebug("find colors: " .. color3 .. " " .. color15 .. " " .. color30);
     
-    return color3min ,color3max ,color15min ,color15max ,color30min ,color30max;
+    return color3, color15, color30;
 end
 
-function getColorFuzzy(r, g, b)
-    r_min = r * (1 - (100 - ENHANCE_FUZZY_NUM) / 1000);
-    r_max = r * (1 + (200 - ENHANCE_FUZZY_NUM) / 1000);
-    g_min = g * (1 - (100 - ENHANCE_FUZZY_NUM) / 1000);
-    g_max = g * (1 + (200 - ENHANCE_FUZZY_NUM) / 1000);
-    b_min = b * (1 - (100 - ENHANCE_FUZZY_NUM) / 1000);
-    b_max = b * (1 + (200 - ENHANCE_FUZZY_NUM) / 1000);
+function getColorHuman(r, g, b)
+    -- ff0000
+    if r > 127 and g < 127 and b < 127 then
+        return 'red';
+    end
+    -- 00ff00
+    if r < 127 and g > 127 and b < 127 then
+        return 'green';
+    end
+    -- 0000ff
+    -- exception of g
+    if r < 127 and g > 127 and b > 127 then
+        return 'blue';
+    end
+    -- ffff00
+    if r > 127 and g > 127 and b < 127 then
+        return 'yellow';
+    end
+    -- ff00ff
+    if r > 127 and g < 127 and b > 127 then
+        return 'purple';
+    end
 
-    return rgb2Hex(r_min, g_min, b_min), rgb2Hex(r_max, g_max, b_max);
+    logDebug('color not recognized');
+
+    return 'wrong';
 end
 
 function hex(n)
@@ -62,7 +84,7 @@ function hex(n)
 end
 
 function rgb2Hex(r, g, b)
-    return "0x" .. hex(r) .. hex(g) .. hex(b);
+    return hex(r) .. hex(g) .. hex(b);
 end
 
 function lpad(r)
