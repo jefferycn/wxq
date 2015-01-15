@@ -408,9 +408,25 @@ function getColorHuman(r, g, b)
         return 'purple';
     end
 
-    logDebug('color not recognized');
+    return rgb2Hex(r, g, b);
+end
 
-    return 'color';
+function hex(n)
+    if n > 255 then
+        n = 255;
+    end
+    return lpad(string.format("%x", n));
+end
+
+function rgb2Hex(r, g, b)
+    return hex(r) .. hex(g) .. hex(b);
+end
+
+function lpad(r)
+    if string.len(r) == 1 then
+        r = "0" .. r;
+    end
+    return r;
 end
 
 function findBtn(color, x, y)
