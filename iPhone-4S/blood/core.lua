@@ -1,7 +1,6 @@
 SCREEN_RESOLUTION="640x960"
 SCREEN_COLOR_BITS=32
 
-debug=0
 count=1
 round=1
 saveStars=0
@@ -184,13 +183,13 @@ function saveStatus()
 end
 
 function logStatus(force)
-	if debug == 1 or force == 1 then
+	if DEBUG == 1 or force == 1 then
 		logDebug(string.format("P: %s R: %s Y: %s B: %s G: %s on Round: %s saving: %s", status[0], status[1], status[2], status[3], status[4], round, saveStars));
 	end
 end
 
 function log(s)
-	if debug == 1 then
+	if DEBUG == 1 then
 		logDebug(s);
 	end
 end
